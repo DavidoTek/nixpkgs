@@ -105,12 +105,14 @@ stdenv.mkDerivation (finalAttrs: {
         outputHashMode = "recursive";
         outputHashAlgo = "sha256";
         outputHash = finalAttrs.npmDepsHash;
+        impureEnvVars = lib.fetchers.proxyImpureEnvVars;
         env = {
           FORCE_EMPTY_CACHE = true;
           FORCE_GIT_DEPS = true;
           npm_config_progress = false;
           npm_config_cafile = "${cacert}/etc/ssl/certs/ca-bundle.crt";
           NODE_EXTRA_CA_CERTS = "${cacert}/etc/ssl/certs/ca-bundle.crt";
+          NODE_USE_ENV_PROXY = "1";
         };
       }
       ''
